@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LarsDehairs - Links</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #0d0d0d;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #00ffcc;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover {
+            transform: scale(1.1);
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+            letter-spacing: 2px;
+        }
+        p {
+            font-size: 16px;
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .link-section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+        }
+        .link {
+            display: flex;
+            align-items: center;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            border: 1px solid #00ffcc;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .link i {
+            margin-right: 10px;
+            font-size: 20px;
+            color: #00ffcc;
+        }
+        .link:hover {
+            background-color: #00ffcc;
+            color: #0d0d0d;
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+        .link:hover i {
+            color: #0d0d0d;
+        }
+        .link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 255, 204, 0.1);
+            transition: left 0.3s ease;
+        }
+        .link:hover::before {
+            left: 0;
+        }
+        .project-card {
+            margin: 15px auto;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+        }
+        .project-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+        }
+        .project-description {
+            font-size: 14px;
+            color: #fff;
+            line-height: 1.5;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.7);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.show {
+            opacity: 1;
+        }
+        .modal-content {
+            background-color: #1a1a1a;
+            border: 2px solid #00ffcc;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+            text-align: center;
+            position: relative;
+            transform: scale(0.7);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #00ffcc;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            letter-spacing: 1px;
+        }
+        .modal-bio {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #00ffcc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid #00ffcc;
+        }
+        .modal-close:hover {
+            color: #fff;
+            background-color: #00ffcc;
+            transform: rotate(90deg);
+        }
+        .modal-icon {
+            font-size: 48px;
+            color: #00ffcc;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+        }
+        .modal-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #00ffcc;
+            color: #0d0d0d;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.4);
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .link {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+            .project-card {
+                height: 150px;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-title {
+                font-size: 24px;
+            }
+            .modal-bio {
+                font-size: 14px;
+            }
+            .modal-icon {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="data:image/jpeg;base64,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" alt="Profile Picture" class="profile-pic">
+        <h1>Lars Dehairs</h1>
+        <p>💻 Developer | 🛠️ PC Builder | 🔍 Exploring Java, Python, HTML & C++ | 🎚️ Audio/Video Editor | 🎮 Gamer & Tech Enthusiast | 🥁 Drummer | 👨‍💻 Coder | 🎙️ Radio Host | 📻 Radio Top Score |</p>
+
+        <!-- Modal -->
+        <div class="modal" id="linkModal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">×</span>
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-bio" id="modalBio"></div>
+                <a href="#" class="modal-button" id="modalButton">Visit Link</a>
+            </div>
+        </div>
+
+        
+        <!-- Me Section -->
+        <div class="link-section">
+            <div class="section-title">Me</div>
+            <a href="" class="link" onclick="openModal('Website', 'My personal portfolio with everything in it!', 'https://larsdehairs.framer.website/', 'fas fa-globe', event)"><i class="fas fa-globe"></i>Website</a>
+            <a href="" class="link" onclick="openModal('Instagram', 'More of me and my projects on Instagram!', 'https://www.instagram.com/larsdehairs/profilecard/?igsh=MWQ1Nnlrd2Zua2p4eQ%3D%3D', 'fab fa-instagram', event)"><i class="fab fa-instagram"></i>Instagram</a>
+            <a href="" class="link" onclick="openModal('Twitch', 'Watch my gaming streams on twitch!', 'https://www.twitch.tv/larzilla15', 'fab fa-twitch', event)"><i class="fab fa-twitch"></i>Twitch</a>
+            <a href="" class="link" onclick="openModal('GitHub', 'My coding journey and open-source projects on GitHub! Take a look!', 'https://github.com/LD-beepbeep', 'fab fa-github', event)"><i class="fab fa-github"></i>GitHub</a>
+            <a href="" class="link" onclick="openModal('Spotify', 'Listen to my favorite tracks and playlists on Spotify!', 'https://open.spotify.com/user/31koe2edmw5men3gcsnwgpds4wgq?si=9200f38a03a04296', 'fab fa-spotify', event)"><i class="fab fa-spotify"></i>Spotify</a>
+            <div class="section-title">My Projects/Interests</div>
+            <a href="https://www.youtube.com/watch?v=4a7Kne25wgQ" class="project-card" style="background-image: url('https://framerusercontent.com/images/4i5LHoz9SChFPUWpsq7d5qz7yLM.png')">
+                <div class="project-title">Toxic World</div>
+                <div class="project-description">Welcome to Toxic World. The real world is poisoned, so humanity escapes into a massive virtual reality. But a hacker breaks in to destroy it... Will he succeed, or can the last world be saved?</div>
+            </a>
+            <a href="https://be.pcpartpicker.com/user/LD_15/saved/Cz9NvK" class="project-card" style="background-image: url('https://i.pinimg.com/736x/5a/92/45/5a924546591db4cca834e3a6baec9cb4.jpg">
+                <div class="project-title">PC</div>
+                <div class="project-description">Another exciting project: I built my own pc! Click on the image to see the parts list!</div>
+            </a>
+
+        </div>
+
+        <!-- Reach Out Section -->
+        <div class="link-section">
+            <div class="section-title">Reach out to me!</div>
+            <a href="" class="link" onclick="openModal('Connect!', 'Fill in a simple form and connect with me!', 'https://larsdehairs.framer.website/contact', 'fa solid fa-message', event)"><i class="fa solid fa-message"></i>Connect</a>
+        </div>
+
+        <!-- Radio Section -->
+        <div class="link-section">
+            <div class="section-title">Radio</div>
+            <a href="" class="link" onclick="openModal('Listen', 'Tune in to my radio for the best metal and rock music!', 'https://radiotopscore.radio12345.com/', 'fas fa-headphones', event)"><i class="fas fa-headphones"></i>Listen</a>
+            <a href="" class="link" onclick="openModal('Website', 'Visit my radio website for song requests, challenges and more! ', 'https://radiotopscore.framer.website/', 'fas fa-globe', event)"><i class="fas fa-globe"></i>Website</a>
+        </div>
+
+        <!-- Discord Server Section -->
+        <div class="link-section">
+            <div class="section-title">Discord server! Overclocked Café!</div>
+            <a href="" class="link" onclick="openModal('Website', 'Check out the Overclocked Café Discord server website! ', 'https://overclockedcafe.neocities.org/', 'fas fa-globe', event)"><i class="fas fa-globe"></i>Website</a>
+            <a href="" class="link" onclick="openModal('Invite link', 'Join the Overclocked Café Discord server with this invite!', 'https://discord.gg/BqMhJDweY2', 'fab fa-discord', event)"><i class="fab fa-discord"></i>Invite link</a>
+        </div>
+
+        <!-- The Fire Of The Band Section -->
+        <div class="link-section">
+            <div class="section-title">Coding Projects</div>
+            <a href="" class="link" onclick="openModal('Voc tester', 'This is a voc tester where you can add custom words to learn and practice them! Massive update coming by the way! ', 'https://ld-beepbeep.github.io/French-Words-2.0/', 'fa solid fa-school', event)"><i class="fa solid fa-school"></i>Voc Tester</a>
+            <a href="" class="link" onclick="openModal('Fake Hacker', 'A fake hacker tool for fun and pranks! ', 'https://ld-beepbeep.github.io/Fake-Hacker/', 'fa solid fa-file-code', event)"><i class="fa solid fa-file-code"></i>Fake Hacker</a>
+            <a href="" class="link" onclick="openModal('Neon Leap', 'Neon Leap is a fast-paced cyberpunk platformer where you leap, dash, and collect coins through glowing neon levels. Unlock new characters, backgrounds, and abilities as you master precision jumps and parkour your way through 100 unique stages, all set in a cool, retro-futuristic world!', 'https://ld-studios.itch.io/neon-leap', 'fa-solid fa-gamepad', event)"><i class="fa-solid fa-gamepad"></i>Neon Leap</a>
+            <a href="" class="link" onclick="openModal('Pixel Art', 'Just some random pixel art maker', 'https://ld-beepbeep.github.io/Pixel-art/', 'fa-solid fa-palette', event)"><i class="fa-solid fa-palette"></i>Pixel Art</a>
+            
+        </div>
+
+        <!-- Footer -->
+        <p>© 2025 Lars Dehairs, All Rights Reserved. Made in HTML.</p>
+    </div>
+
+    <script>
+        function openModal(title, bio, link, iconClass, event) {
+            event.preventDefault();
+            const modal = document.getElementById('linkModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBio = document.getElementById('modalBio');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalButton = document.getElementById('modalButton');
+            
+            modalTitle.textContent = title;
+            modalBio.textContent = bio;
+            modalIcon.className = `modal-icon ${iconClass}`;
+            modalButton.href = link;
+            
+            modal.style.display = 'flex';
+            // Trigger reflow
+            modal.offsetHeight;
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('linkModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('linkModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
